@@ -129,9 +129,42 @@ $(function() {
 
   /* This suite is all about tests on New Feed Selection. */
   describe('New Feed Selection', function() {
-    /* TODO: Write a test that ensures when a new feed is loaded
-     * by the loadFeed function that the content actually changes.
-     * Remember, loadFeed() is asynchronous.
+
+    /* Will store the visialised content,
+     * build from the server responses
+     * in "Initial Entries" suite above,
+     * or the default content.
      */
+    var previousContent = $('.feed').text();
+
+    /* Wait for the server to respond first,
+     * and then run the test.
+     */
+    beforeEach(function(done) {
+
+      /* Send request to server with an id of feedList = 1 for example.
+       * Using 1 we request response from CSS Tricks. Check allFeeds[] in app.js.
+       * This request is different from the one in "Initial Entries" suite above,
+       * so it should return different content.
+       */
+      loadFeed(1, function() {
+
+        // When the response is ready, close the function.
+        done();
+      });
+    });
+
+    /* Test that ensures when a new feed is loaded
+     * by the loadFeed function that the content actually changes.
+     */
+    it('should change the content', function(done) {
+
+      /* The content build from the response in this suite,
+       * should be different from the one build from "Initial Entries" suite
+       */
+      expect($('.feed').text()).not.toBe(previousContent);
+
+      done();
+    });
   });
 }());
