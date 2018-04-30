@@ -46,31 +46,32 @@ $(function() {
      * in the allFeeds object and ensures it has a name defined
      * and that the name is not empty.
      */
-     it('have name defined', function() {
+    it('have name defined', function() {
 
-       allFeeds.forEach(function(feed) {
+      allFeeds.forEach(function(feed) {
 
-         expect(feed.name).toBeDefined();
-         expect(feed.name.length).not.toBe(0);
+        expect(feed.name).toBeDefined();
+        expect(feed.name.length).not.toBe(0);
 
-       })
-     });
+      })
+    });
   });
 
+  // This suite is all about tests on "The menu".
+  describe('The menu', function() {
 
-  /* TODO: Write a new test suite named "The menu" */
+    /* TODO: Write a test that ensures the menu element is
+     * hidden by default. You'll have to analyze the HTML and
+     * the CSS to determine how we're performing the
+     * hiding/showing of the menu element.
+     */
 
-  /* TODO: Write a test that ensures the menu element is
-   * hidden by default. You'll have to analyze the HTML and
-   * the CSS to determine how we're performing the
-   * hiding/showing of the menu element.
-   */
-
-  /* TODO: Write a test that ensures the menu changes
-   * visibility when the menu icon is clicked. This test
-   * should have two expectations: does the menu display when
-   * clicked and does it hide when clicked again.
-   */
+    /* TODO: Write a test that ensures the menu changes
+     * visibility when the menu icon is clicked. This test
+     * should have two expectations: does the menu display when
+     * clicked and does it hide when clicked again.
+     */
+  });
 
   /* TODO: Write a new test suite named "Initial Entries" */
 
