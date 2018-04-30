@@ -130,25 +130,48 @@ $(function() {
   /* This suite is all about tests on New Feed Selection. */
   describe('New Feed Selection', function() {
 
-    /* Will store the visialised content,
-     * build from the server responses
-     * in "Initial Entries" suite above,
-     * or the default content.
-     */
-    var previousContent = $('.feed').text();
+    var isNewContentAdded = false;
+    console.log(isNewContentAdded);
+
+    // Listens for change in html.
+    // function observeChange() {
+
+      // Select the node that will be observed for mutations (chnage in html).
+      var feed = document.querySelector('.feed');
+
+      // Options for the observer (which mutations to observe)
+      var config = {
+        childList: true
+      };
+
+      // Callback function to execute when mutations are observed
+      var callback = function(mutationsList) {
+         console.log('1. Callback observer');
+        // Content is changed
+        isNewContentAdded = true;
+        console.log("2. Callback observer after "  + isNewContentAdded);
+      };
+
+      // Create an observer instance linked to the callback function
+      var observer = new MutationObserver(callback);
+
+      // Start observing the target node for configured mutations
+      observer.observe(feed, config);
+
+    // }
 
     /* Wait for the server to respond first,
      * and then run the test.
      */
     beforeEach(function(done) {
 
-      /* Send request to server with an id of feedList = 1 for example.
-       * Using 1 we request response from CSS Tricks. Check allFeeds[] in app.js.
-       * This request is different from the one in "Initial Entries" suite above,
-       * so it should return different content.
-       */
-      loadFeed(1, function() {
+      // Listen for changes in the content.
+      // observeChange();
 
+      /* Send request to server.
+       */
+      loadFeed(0, function() {
+        console.log('Load feed is called');
         // When the response is ready, close the function.
         done();
       });
@@ -159,10 +182,11 @@ $(function() {
      */
     it('should change the content', function(done) {
 
-      /* The content build from the response in this suite,
-       * should be different from the one build from "Initial Entries" suite
+      observer.disconnect();
+      /* The observeChange() should have detected the change of the content,
+       * and change the isNewContentAdded to true.
        */
-      expect($('.feed').text()).not.toBe(previousContent);
+      expect(isNewContentAdded).toBe(true);
 
       done();
     });
