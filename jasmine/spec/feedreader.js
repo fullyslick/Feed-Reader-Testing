@@ -94,12 +94,37 @@ $(function() {
 
   /* This suite is all about tests on "Entries returned from API". */
   describe('Initial Entries', function() {
-    /* TODO: Write a test that ensures when the loadFeed
+    /* Test that ensures when the loadFeed
      * function is called and completes its work, there is at least
      * a single .entry element within the .feed container.
-     * Remember, loadFeed() is asynchronous so this test will require
-     * the use of Jasmine's beforeEach and asynchronous done() function.
      */
+
+    /* Wait for the server to respond first,
+     * and then run the test.
+     */
+    beforeEach(function(done) {
+
+      /* Send request to server with an id of feedList = 0 for example.
+       * Using 0 we request response from Udacity Blog. Check allFeeds[] in app.js.
+       */
+      loadFeed(0, function() {
+
+        // When the response is ready, close the function.
+        done();
+      });
+    });
+
+    /* This test ensures when the loadFeed
+     * function is called and completes its work, there is at least
+     * a single .entry element within the .feed container.
+     */
+    it('should have at least one entry', function(done) {
+
+      // There should be at least one element with class "entry".
+      expect($('.feed').find('.entry').length).not.toBe(0);
+
+      done();
+    });
   });
 
   /* TODO: Write a new test suite named "New Feed Selection" */
