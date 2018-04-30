@@ -92,7 +92,7 @@ $(function() {
     });
   });
 
-  /* This suite is all about tests on "Entries returned from API". */
+  /* This suite is all about tests on entries returned from API. */
   describe('Initial Entries', function() {
     /* Test that ensures when the loadFeed
      * function is called and completes its work, there is at least
@@ -127,10 +127,11 @@ $(function() {
     });
   });
 
-  /* TODO: Write a new test suite named "New Feed Selection" */
-
-  /* TODO: Write a test that ensures when a new feed is loaded
-   * by the loadFeed function that the content actually changes.
-   * Remember, loadFeed() is asynchronous.
-   */
+  /* This suite is all about tests on New Feed Selection. */
+  describe('New Feed Selection', function() {
+    /* TODO: Write a test that ensures when a new feed is loaded
+     * by the loadFeed function that the content actually changes.
+     * Remember, loadFeed() is asynchronous.
+     */
+  });
 }());
