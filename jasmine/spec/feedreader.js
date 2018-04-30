@@ -60,18 +60,36 @@ $(function() {
   /* This suite is all about tests on "The menu". */
   describe('The menu', function() {
 
+    // Stores the menu icon button.
+    var menuIcon = $('.menu-icon-link');
+
     /* Test that ensures the menu element is
      * hidden by default.
      */
-     it('is hidden by default', function(){
-       expect($('body').hasClass('menu-hidden')).toBe(true);
-     });
+    it('is hidden by default', function() {
+      expect($('body').hasClass('menu-hidden')).toBe(true);
+    });
 
-    /* TODO: Write a test that ensures the menu changes
+    /* Test that ensures the menu changes
      * visibility when the menu icon is clicked. This test
-     * should have two expectations: does the menu display when
+     * have two expectations: does the menu display when
      * clicked and does it hide when clicked again.
      */
+    it('menu changes visibility when the menu icon is clicked', function() {
+
+      // Simulate click event on the menuIcon using trigger() method.
+      menuIcon.trigger('click');
+
+      // Menu should be visible.
+      expect($('body').hasClass('menu-hidden')).toBe(false);
+
+      // Simulate another click event on the menuIcon using trigger() method.
+      menuIcon.trigger('click');
+
+      // Menu should be hidden.
+      expect($('body').hasClass('menu-hidden')).toBe(true);
+
+    });
   });
 
   /* TODO: Write a new test suite named "Initial Entries" */
