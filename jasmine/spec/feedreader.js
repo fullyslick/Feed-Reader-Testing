@@ -131,22 +131,30 @@ $(function() {
   /* This suite is all about tests on New Feed Selection. */
   describe('New Feed Selection', function() {
 
-    // By default there are no feeds loaded, so there should be 0 feeds.
-    var defaultNumberOfFeeds = $('.entry-link').children().length;
+    // Will hold the feeds loaded from different async calls.
+    var firstFeed;
+    var secondFeed;
 
     /* Wait for the server to respond first,
      * and then run the test.
      */
     beforeEach(function(done) {
 
-      /* Send request to server with an id of feedList = 0 for example.
-       * Using 0 we request response from Udacity Blog.
-       * For more info refer to allFeeds[] in app.js.
-       */
+      // Send request to server with an id of feedList = 0 for example.
       loadFeed(0, function() {
 
-        // When the response is ready, close the function.
-        done();
+        // Get the text displayed from the first request to server.
+        firstFeed = $('.feed .entry').text();
+
+        /* Send second request to server with different id of feedList.
+         * This should append the previously displayed content from first request.
+         */
+         loadFeed(1, function(){
+           secondFeed = $('.feed .entry').text();
+
+           // When the response from second request is ready, close the function.
+           done();
+         });
       });
     });
 
@@ -158,8 +166,8 @@ $(function() {
       // loadFeed is completed so now there should be some number of feeds loaded in the html.
       var numberOfLoadedFeeds = $('.entry-link').children().length;
 
-      // the number of default feeds should be different from the number of loaded feeds.
-      expect(defaultNumberOfFeeds === numberOfLoadedFeeds).toBe(false);
+      // The displayed html from the two different reuqests should not be equal.
+      expect(firstFeed).not.toEqual(secondFeed);
 
       done();
     });
