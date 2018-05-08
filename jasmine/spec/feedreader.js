@@ -75,7 +75,7 @@ $(function() {
      * have two expectations: does the menu display when
      * clicked and does it hide when clicked again.
      */
-    it('menu changes visibility when the menu icon is clicked', function() {
+    it('changes visibility when the menu icon is clicked', function() {
 
       // Simulate click event on the menuIcon using trigger() method.
       menuIcon.trigger('click');
@@ -105,7 +105,8 @@ $(function() {
     beforeEach(function(done) {
 
       /* Send request to server with an id of feedList = 0 for example.
-       * Using 0 we request response from Udacity Blog. Check allFeeds[] in app.js.
+       * Using 0 we request response from Udacity Blog.
+       * For more info refer to allFeeds[] in app.js.
        */
       loadFeed(0, function() {
 
@@ -136,27 +137,27 @@ $(function() {
     // Listens for change in html.
     // function observeChange() {
 
-      // Select the node that will be observed for mutations (chnage in html).
-      var feed = document.querySelector('.feed');
+    // Select the node that will be observed for mutations (chnage in html).
+    var feed = document.querySelector('.feed');
 
-      // Options for the observer (which mutations to observe)
-      var config = {
-        childList: true
-      };
+    // Options for the observer (which mutations to observe)
+    var config = {
+      childList: true
+    };
 
-      // Callback function to execute when mutations are observed
-      var callback = function(mutationsList) {
-         console.log('1. Callback observer');
-        // Content is changed
-        isNewContentAdded = true;
-        console.log("2. Callback observer after "  + isNewContentAdded);
-      };
+    // Callback function to execute when mutations are observed
+    var callback = function(mutationsList) {
+      console.log('1. Callback observer');
+      // Content is changed
+      isNewContentAdded = true;
+      console.log("2. Callback observer after " + isNewContentAdded);
+    };
 
-      // Create an observer instance linked to the callback function
-      var observer = new MutationObserver(callback);
+    // Create an observer instance linked to the callback function
+    var observer = new MutationObserver(callback);
 
-      // Start observing the target node for configured mutations
-      observer.observe(feed, config);
+    // Start observing the target node for configured mutations
+    observer.observe(feed, config);
 
     // }
 
