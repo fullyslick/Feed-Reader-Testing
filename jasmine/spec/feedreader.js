@@ -131,48 +131,20 @@ $(function() {
   /* This suite is all about tests on New Feed Selection. */
   describe('New Feed Selection', function() {
 
-    var isNewContentAdded = false;
-    console.log(isNewContentAdded);
-
-    // Listens for change in html.
-    // function observeChange() {
-
-    // Select the node that will be observed for mutations (chnage in html).
-    var feed = document.querySelector('.feed');
-
-    // Options for the observer (which mutations to observe)
-    var config = {
-      childList: true
-    };
-
-    // Callback function to execute when mutations are observed
-    var callback = function(mutationsList) {
-      console.log('1. Callback observer');
-      // Content is changed
-      isNewContentAdded = true;
-      console.log("2. Callback observer after " + isNewContentAdded);
-    };
-
-    // Create an observer instance linked to the callback function
-    var observer = new MutationObserver(callback);
-
-    // Start observing the target node for configured mutations
-    observer.observe(feed, config);
-
-    // }
+    // By default there are no feeds loaded, so there should be 0 feeds.
+    var defaultNumberOfFeeds = $('.entry-link').children().length;
 
     /* Wait for the server to respond first,
      * and then run the test.
      */
     beforeEach(function(done) {
 
-      // Listen for changes in the content.
-      // observeChange();
-
-      /* Send request to server.
+      /* Send request to server with an id of feedList = 0 for example.
+       * Using 0 we request response from Udacity Blog.
+       * For more info refer to allFeeds[] in app.js.
        */
       loadFeed(0, function() {
-        console.log('Load feed is called');
+
         // When the response is ready, close the function.
         done();
       });
@@ -183,11 +155,11 @@ $(function() {
      */
     it('should change the content', function(done) {
 
-      observer.disconnect();
-      /* The observeChange() should have detected the change of the content,
-       * and change the isNewContentAdded to true.
-       */
-      expect(isNewContentAdded).toBe(true);
+      // loadFeed is completed so now there should be some number of feeds loaded in the html.
+      var numberOfLoadedFeeds = $('.entry-link').children().length;
+
+      // the number of default feeds should be different from the number of loaded feeds.
+      expect(defaultNumberOfFeeds === numberOfLoadedFeeds).toBe(false);
 
       done();
     });
